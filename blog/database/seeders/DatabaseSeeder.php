@@ -15,11 +15,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            //jako je bitan redosled
             UserSeeder::class,
             PostSeeder::class,
             CommentSeeder::class,
-            //jos
         ]);
     }
 }

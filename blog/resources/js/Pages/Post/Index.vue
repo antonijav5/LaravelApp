@@ -1,17 +1,15 @@
+<script >
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { Head } from '@inertiajs/vue3';
+</script>
+
 <template>
+  <AuthenticatedLayout>
     <div
       v-if="posts.length"
-      :style="{
-        backgroundImage: `url(/images/posts/${posts[0].id})`,
-      }"
-      class="min-h-screen bg-cover bg-center p-8"
+ style="    padding: 1rem"
+      class=" bg-cover bg-center p-8"
     >
-      <h1
-        class="text-4xl font-bold mb-8 text-center"
-        style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
-      >
-        LIFESTYLE
-      </h1>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div
           v-for="post in paginatedPosts"
@@ -19,7 +17,7 @@
           class="card flex shadow-lg border border-light rounded bg-white/80 h-auto"
         >
           <img
-            :src="`/images/posts/${post.id}.jpg`"
+            :src="`/images/posts/${post.id%13+1}.jpg`"
             alt="Post Image"
             class="w-1/3 h-32 object-cover rounded-l-lg"
           />
@@ -38,6 +36,7 @@
         <button @click="nextPage" :disabled="currentPage === totalPages" class="btn btn-secondary mx-2">Next</button>
       </div>
     </div>
+  </AuthenticatedLayout>
   </template>
 
   <script setup>

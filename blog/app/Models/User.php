@@ -46,11 +46,25 @@ class User extends Authenticatable
         ];
     }
 
+     /*
+    * Eloquent relationship linking user and post
+    */
     public function posts() {
         return $this->hasMany(Post::class);
     }
 
+     /*
+    * Eloquent relationship linking user and comment
+    */
     public function comments() {
         return $this->hasMany(Comment::class);
     }
+
+     /*
+    * Checking whether user's role is 'admin'
+    */
+    public function isAdmin()
+{
+    return $this->role === 'admin';
+}
 }

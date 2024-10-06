@@ -9,11 +9,17 @@ class Comment extends Model
 {
     use HasFactory;
 
+     /*
+    * Eloquent relationship linking comment and post
+    */
     public function post() {
         return $this->belongsTo(Post::class);
     }
 
+     /*
+    * Eloquent relationship linking user and comment
+    */
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withDefault();
     }
 }
