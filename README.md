@@ -40,24 +40,24 @@ DB_DATABASE=/path/to/database.sqlite
 Make sure the SQLite driver is installed in your PHP configuration.
 
 ## Running Migrations
-After configuring the database, run the migrations:
-php artisan migrate
-Then, seed the database with initial data:
-php artisan db:seed
+After configuring the database, run the migrations:  
+php artisan migrate  
+Then, seed the database with initial data:  
+php artisan db:seed  
 
 ## Compile Frontend Assets
-To compile the Vue.js frontend, run:
-npm run dev
-# or
-yarn dev
-If you want to compile for production, run:
-npm run build
-# or
-yarn build
+To compile the Vue.js frontend, run:  
+npm run dev  
+# or  
+yarn dev  
+If you want to compile for production, run:  
+npm run build  
+# or  
+yarn build  
 
 ## Start the Development Server
-Finally, start the Laravel development server:
-php artisan serve
+Finally, start the Laravel development server:  
+php artisan serve  
 
 ## Testing
 -> Unit testing:
@@ -125,16 +125,16 @@ php artisan serve
   Duration: 10.92s
 
 ## Routes
-The application supports the following routes:
-GET /posts: List all posts.
-GET /posts/create: Show the form to create a new post (authenticated users only).
-POST /posts: Store the post (authenticated users only).
-GET /posts/{id}: View a single post along with comments.
-GET /posts/{id}/edit: Edit the post (only the owner of the post).
-PUT /posts/{id}: Update the post (only the owner of the post).
-DELETE /posts/{id}: Delete the post (only the owner of the post).
-POST /posts/{id}/comments: Add a comment (for authenticated users and guests).
-DELETE /comments/{id}: Delete a comment (only the comment owner or post owner)
+The application supports the following routes:  
+GET /posts: List all posts.  
+GET /posts/create: Show the form to create a new post (authenticated users only).  
+POST /posts: Store the post (authenticated users only).  
+GET /posts/{id}: View a single post along with comments.  
+GET /posts/{id}/edit: Edit the post (only the owner of the post).  
+PUT /posts/{id}: Update the post (only the owner of the post).  
+DELETE /posts/{id}: Delete the post (only the owner of the post).  
+POST /posts/{id}/comments: Add a comment (for authenticated users and guests).  
+DELETE /comments/{id}: Delete a comment (only the comment owner or post owner)  
 
 ## Usage of Routes
 The application provides the following routes for managing posts and comments. Below are the details on how to use each route:
