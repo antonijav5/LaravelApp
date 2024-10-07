@@ -22,7 +22,6 @@ class PostFactory extends Factory
             'content' => $this->faker->paragraph(),
             'created_at' => now(),
             'updated_at' => now(),
-            // 'image' => 'images/posts/' . rand(1, 13) . '.jpg',
         ];
     }
 }

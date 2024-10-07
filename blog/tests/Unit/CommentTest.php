@@ -2,86 +2,48 @@
 
 namespace Tests\Unit;
 
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Support\Facades\Auth;
-use Tests\TestCase;
 
 class CommentTest extends TestCase
 {
-    use RefreshDatabase; // Ovo će resetovati bazu podataka posle svakog testa
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        // Kreiraj korisnika i post za testiranje
-        $this->user = User::factory()->create();
-        $this->post = Post::factory()->create();
-    }
+    use RefreshDatabase;
 
     /** @test */
-    public function a_user_can_add_a_comment()
+    public function it_creates_a_comment_successfully()
     {
-        // Prijavi korisnika
-        $this->actingAs($this->user);
-
-        // Pošalji zahtev za dodavanje komentara
-        $response = $this->post(route('comments.store', $this->post->id), [
-            'body' => 'This is a comment.',
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        $post = Post::factory()->create([
+            'user_id'=> $user->id
         ]);
-
-        // Proveri da je komentar dodat
+        $response = $this->post(route('comments.store', $post->id), [
+            'body' => 'This is a test comment.',
+        ]);
         $this->assertDatabaseHas('comments', [
-            'body' => 'This is a comment.',
-            'user_id' => $this->user->id,
-            'post_id' => $this->post->id,
+            'body' => 'This is a test comment.',
+            'user_id' => $user->id,
+            'post_id' => $post->id,
         ]);
-
-        // Proveri redirekciju
-        $response->assertRedirect(route('posts.show', $this->post->id));
+        $response->assertRedirect(route('posts.show', $post->id));
         $response->assertSessionHas('success', 'Comment added successfully!');
     }
 
     /** @test */
-    public function a_user_can_delete_a_comment()
+    public function it_requires_a_body_to_create_a_comment()
     {
-        // Prijavi korisnika
-        $this->actingAs($this->user);
-
-        // Kreiraj komentar
-        $comment = Comment::factory()->create([
-            'user_id' => $this->user->id,
-            'post_id' => $this->post->id,
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        $post = Post::factory()->create([
+            'user_id'=> $user->id
         ]);
-
-        // Pošalji zahtev za brisanje komentara
-        $response = $this->delete(route('comments.destroy', $comment->id));
-
-        // Proveri da komentar više ne postoji
-        $this->assertDatabaseMissing('comments', [
-            'id' => $comment->id,
-        ]);
-
-        // Proveri redirekciju
-        $response->assertRedirect();
-        $response->assertSessionHas('success', 'Comment deleted successfully!');
-    }
-
-    /** @test */
-    public function a_comment_requires_a_body()
-    {
-        // Prijavi korisnika
-        $this->actingAs($this->user);
-
-        // Pokušaj dodati komentar bez tela
-        $response = $this->post(route('comments.store', $this->post->id), [
+        $response = $this->post(route('comments.store', $post->id), [
             'body' => '',
         ]);
 
-        // Proveri grešku
         $response->assertSessionHasErrors('body');
     }
 }

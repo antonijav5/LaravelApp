@@ -16,7 +16,7 @@ class PostTest extends TestCase
 
     public function test_store_method_creates_a_post()
     {
-        $user = User::factory()->make();
+        $user = User::factory()->create();
         Auth::shouldReceive('user')->andReturn($user);
         $request = Request::create('/posts', 'POST', [
             'title' => 'Test Post',

@@ -13,7 +13,10 @@ class PostTest extends TestCase
 
     public function test_can_list_all_posts()
     {
-        $posts = Post::factory()->count(3)->create();
+        $user = User::factory()->create();
+        $posts = Post::factory()->count(3)->create([
+            'user_id' => $user->id
+        ]);
         $response = $this->get('/posts');
         $response->assertStatus(200);
         $response->assertSee($posts->first()->title);
@@ -21,7 +24,10 @@ class PostTest extends TestCase
 
     public function test_can_view_single_post()
     {
-        $post = Post::factory()->create();
+        $user = User::factory()->create();
+        $post = Post::factory()->create([
+            'user_id' => $user->id
+        ]);
         $response = $this->get("/posts/{$post->id}");
         $response->assertStatus(200);
         $response->assertSee($post->title);

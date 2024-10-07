@@ -49,7 +49,7 @@ import { Head } from '@inertiajs/vue3';
     },
   });
 
-  const postsPerPage = 9; // Broj objava po stranici
+  const postsPerPage = 9; 
   const currentPage = ref(1);
 
   const totalPages = computed(() => {

@@ -63,7 +63,6 @@
                 <p class="text-gray-800 mb-2">{{ comment.body }}</p>
                 <small class="text-gray-500"><i>{{ new Date(comment.created_at).toLocaleDateString() }}</i></small>
               </div>
-              <!-- Delete button only if the comment was made by the logged-in user -->
               <div v-if="comment.user.id === currentUserId">
                 <button
                   @click="deleteComment(comment.id)"
@@ -164,7 +163,7 @@ const addComment = async () => {
 const deleteComment = async (commentId) => {
   try {
     await axios.delete(`/comments/${commentId}`);
-    //props.post.comments = props.post.comments.filter(comment => comment.id !== commentId);
+  alert('Comment deleted.');
   } catch (error) {
     console.error('Error deleting comment:', error);
     alert('There was an error deleting the comment.');
