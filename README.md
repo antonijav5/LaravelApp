@@ -24,7 +24,7 @@ This is a simple Laravel blog application that allows users to create, view, edi
 - npm (comes with Node.js) (my version: 8.12.1)
 ## Installation
 1. Clone the repository:
-   git clone https://github.com/your-username/laravel-blog.git
+   git clone https://github.com/antonijav5/LaravelApp.git
    cd laravel-blog
 2.  Install the dependencies:
    composer install
